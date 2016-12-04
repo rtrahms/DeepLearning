@@ -1,0 +1,10 @@
+DontCare
+Dog
+Cat
+Horse
+Car
+Airplane
+Chair
+Zebra
+Bear
+
