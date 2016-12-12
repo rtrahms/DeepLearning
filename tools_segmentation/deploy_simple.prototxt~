@@ -1,0 +1,45 @@
+input: "data"
+input_shape {
+  dim: 1
+  dim: 3
+  dim: 256
+  dim: 256
+}
+layer {
+  name: "deploy_transform"
+  type: "Power"
+  bottom: "data"
+  top: "transformed_data"
+  power_param {
+    shift: -127.0
+  }
+}
+layer {
+  name: "conv1/7x7_s2"
+  type: "Convolution"
+  bottom: "transformed_data"
+  top: "conv1/7x7_s2"
+  param {
+    lr_mult: 1.0
+    decay_mult: 1.0
+  }
+  param {
+    lr_mult: 2.0
+    decay_mult: 0.0
+  }
+  convolution_param {
+    num_output: 64
+    pad: 3
+    kernel_size: 7
+    stride: 2
+    weight_filler {
+      type: "xavier"
+      std: 0.1
+    }
+    bias_filler {
+      type: "constant"
+      value: 0.2
+    }
+  }
+}
+
